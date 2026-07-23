@@ -39,3 +39,4 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+celerybeat-schedule-wal
