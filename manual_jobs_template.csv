@@ -1,0 +1,3 @@
+title,company_name,company_size,location,country,timezone,job_url,apply_url,job_description,contact_name,contact_title,contact_email,contact_linkedin
+Senior React Developer,Acme Corp,11-50,"New York, NY",US,EST,https://acmecorp.com/jobs/123,https://acmecorp.com/apply/123,"We are looking for a senior React developer to join our growing team...",John Smith,CTO,john@acmecorp.com,https://linkedin.com/in/johnsmith
+Full Stack Engineer,StartupXYZ,1-10,"London, UK",UK,GMT,https://startupxyz.io/careers,,We need a full stack engineer with Node.js and React experience.,,,,
