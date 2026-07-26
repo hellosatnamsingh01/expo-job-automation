@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Expandimo Technologies — Custom Web Application Development</title>
+<meta name="description" content="Expandimo Technologies builds custom web applications, SaaS platforms, and business portals for UK, US, and Australian businesses. Fixed price. On time." />
+<meta property="og:title" content="Expandimo Technologies — Custom Web Applications" />
+<meta property="og:description" content="Fixed-price custom web apps, SaaS platforms & portals for UK, US & Australia businesses." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --blue:      #185FA5;
+  --blue-dark: #0e4a85;
+  --blue-pale: #EBF4FF;
+  --blue-mid:  #B5D4F4;
+  --green:     #059669;
+  --amber:     #D97706;
+  --text:      #111827;
+  --muted:     #6B7280;
+  --hint:      #9CA3AF;
+  --bg:        #F9FAFB;
+  --surface:   #FFFFFF;
+  --border:    #E5E7EB;
+  --radius:    8px;
+  --radius-lg: 14px;
+  --shadow:    0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.05);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.10);
+}
+body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+a { text-decoration: none; }
+
+/* ── NAV ── */
+nav {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+  position: sticky; top: 0; z-index: 200;
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1120px; margin: 0 auto; padding: 0 24px; height: 64px;
+}
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-mark {
+  width: 34px; height: 34px; border-radius: 8px;
+  background: var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-weight: 700; font-size: 16px; letter-spacing: -0.5px;
+}
+.logo-text { font-size: 16px; font-weight: 600; color: var(--text); }
+.logo-text span { color: var(--blue); }
+.nav-links { display: flex; align-items: center; gap: 28px; }
+.nav-links a { font-size: 14px; color: var(--muted); font-weight: 500; }
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  background: var(--blue); color: #fff;
+  padding: 9px 20px; border-radius: var(--radius);
+  font-size: 14px; font-weight: 500; border: none; cursor: pointer;
+}
+.nav-cta:hover { background: var(--blue-dark); }
+
+/* ── HERO ── */
+.hero {
+  background: var(--surface);
+  padding: 88px 0 72px;
+  border-bottom: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 60% 0%, #EBF4FF 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner { display: grid; grid-template-columns: 1fr 440px; gap: 64px; align-items: start; position: relative; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--blue-pale); color: var(--blue);
+  font-size: 12px; font-weight: 600; padding: 5px 12px;
+  border-radius: 100px; margin-bottom: 22px;
+  border: 1px solid var(--blue-mid);
+}
+.hero-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
+.hero h1 {
+  font-size: 44px; font-weight: 700; line-height: 1.15;
+  letter-spacing: -0.03em; margin-bottom: 18px; color: var(--text);
+}
+.hero h1 em { font-style: normal; color: var(--blue); }
+.hero-sub {
+  font-size: 17px; color: var(--muted); line-height: 1.7;
+  margin-bottom: 32px; max-width: 500px;
+}
+.trust-row { display: flex; flex-wrap: wrap; gap: 18px; margin-bottom: 36px; }
+.trust-chip {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 13px; color: var(--muted); font-weight: 500;
+}
+.trust-chip .icon {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #D1FAE5; display: flex; align-items: center; justify-content: center;
+  color: var(--green); font-size: 10px; font-weight: 700; flex-shrink: 0;
+}
+.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
+.btn-blue {
+  background: var(--blue); color: #fff; border: none;
+  padding: 14px 28px; border-radius: var(--radius);
+  font-size: 15px; font-weight: 600; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: background 0.15s;
+}
+.btn-blue:hover { background: var(--blue-dark); }
+.btn-outline {
+  background: transparent; color: var(--text);
+  border: 1.5px solid var(--border);
+  padding: 14px 28px; border-radius: var(--radius);
+  font-size: 15px; font-weight: 500; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+.hero-social-proof { display: flex; align-items: center; gap: 16px; }
+.avatars { display: flex; }
+.av {
+  width: 36px; height: 36px; border-radius: 50%; border: 2px solid #fff;
+  background: var(--blue-pale); display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600; color: var(--blue); margin-left: -10px;
+}
+.av:first-child { margin-left: 0; }
+.social-text { font-size: 13px; color: var(--muted); }
+.social-text strong { color: var(--text); }
+.stars-sm { color: #F59E0B; font-size: 13px; }
+
+/* ── FORM CARD ── */
+.form-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+.form-header {
+  background: var(--blue); padding: 20px 24px;
+}
+.form-header h3 { color: #fff; font-size: 17px; font-weight: 600; margin-bottom: 3px; }
+.form-header p { color: rgba(255,255,255,0.75); font-size: 13px; }
+.form-header .response-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(255,255,255,0.15); color: #fff;
+  font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 100px; margin-top: 8px;
+}
+.form-body { padding: 20px 24px 24px; }
+.fg { margin-bottom: 13px; }
+.fg label { font-size: 12px; font-weight: 600; color: var(--muted); display: block; margin-bottom: 5px; letter-spacing: 0.03em; text-transform: uppercase; }
+.fg input, .fg select, .fg textarea {
+  width: 100%; padding: 10px 12px;
+  border: 1.5px solid var(--border); border-radius: var(--radius);
+  font-size: 14px; background: var(--bg); color: var(--text);
+  font-family: inherit; outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+  -webkit-appearance: none;
+}
+.fg input:focus, .fg select:focus, .fg textarea:focus {
+  border-color: var(--blue); background: #fff;
+  box-shadow: 0 0 0 3px rgba(24,95,165,0.12);
+}
+.fg textarea { height: 72px; resize: none; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.submit-btn {
+  width: 100%; background: var(--blue); color: #fff;
+  border: none; padding: 14px; border-radius: var(--radius);
+  font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 6px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: background 0.15s;
+}
+.submit-btn:hover { background: var(--blue-dark); }
+.submit-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+.form-secure { font-size: 11px; color: var(--hint); text-align: center; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 4px; }
+.form-error { background: #FEF2F2; border: 1px solid #FECACA; border-radius: var(--radius); padding: 10px 14px; font-size: 13px; color: #DC2626; margin-bottom: 12px; display: none; }
+.form-success { display: none; text-align: center; padding: 32px 24px; }
+.form-success .check { font-size: 48px; margin-bottom: 12px; }
+.form-success h3 { font-size: 18px; font-weight: 600; color: var(--green); margin-bottom: 6px; }
+.form-success p { font-size: 14px; color: var(--muted); }
+
+/* ── LOGO STRIP ── */
+.logos-strip { padding: 28px 0; background: var(--bg); border-bottom: 1px solid var(--border); }
+.logos-label { font-size: 12px; font-weight: 600; color: var(--hint); text-align: center; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
+.logos-row { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 32px; }
+.logo-badge {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 8px 16px;
+  font-size: 13px; font-weight: 600; color: var(--muted);
+}
+
+/* ── SECTION BASE ── */
+.section-eyebrow { font-size: 12px; font-weight: 600; color: var(--blue); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+.section-title { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
+.section-sub { font-size: 16px; color: var(--muted); max-width: 540px; line-height: 1.7; margin-bottom: 44px; }
+
+/* ── SERVICES ── */
+.services { padding: 80px 0; background: var(--surface); }
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.svc {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 24px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.svc:hover { border-color: var(--blue-mid); box-shadow: var(--shadow); }
+.svc-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  background: var(--blue-pale); display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin-bottom: 16px;
+}
+.svc h4 { font-size: 15px; font-weight: 600; margin-bottom: 7px; }
+.svc p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ── WHY ── */
+.why { padding: 80px 0; background: var(--bg); }
+.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+.why-points { display: flex; flex-direction: column; gap: 22px; margin-top: 28px; }
+.why-point { display: flex; gap: 14px; }
+.why-icon {
+  width: 38px; height: 38px; min-width: 38px; border-radius: 10px;
+  background: var(--blue-pale); display: flex; align-items: center; justify-content: center; font-size: 18px;
+}
+.why-point h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.why-point p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.stats-panel {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.stats-top { padding: 24px; }
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); border-radius: var(--radius); overflow: hidden; }
+.stat {
+  background: var(--surface); padding: 18px 20px; text-align: center;
+}
+.stat-n { font-size: 30px; font-weight: 700; color: var(--blue); letter-spacing: -0.02em; }
+.stat-l { font-size: 12px; color: var(--muted); margin-top: 3px; font-weight: 500; }
+.tech-block { border-top: 1px solid var(--border); padding: 20px 24px; }
+.tech-label { font-size: 11px; font-weight: 600; color: var(--hint); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.chip {
+  font-size: 12px; font-weight: 500; padding: 5px 12px;
+  border-radius: 100px; background: var(--blue-pale); color: var(--blue);
+  border: 1px solid var(--blue-mid);
+}
+
+/* ── PROCESS ── */
+.process { padding: 80px 0; background: var(--surface); }
+.process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+.process-steps::before {
+  content: '';
+  position: absolute; top: 30px; left: 10%; right: 10%; height: 1px;
+  background: var(--border); z-index: 0;
+}
+.pstep { text-align: center; padding: 0 16px; position: relative; z-index: 1; }
+.pstep-num {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: var(--surface); border: 2px solid var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; margin: 0 auto 18px; font-weight: 700; color: var(--blue);
+}
+.pstep h4 { font-size: 14px; font-weight: 600; margin-bottom: 7px; }
+.pstep p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+/* ── TESTIMONIALS ── */
+.testimonials { padding: 80px 0; background: var(--bg); }
+.testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.testi {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 26px;
+  box-shadow: var(--shadow);
+}
+.testi-stars { color: #F59E0B; font-size: 14px; margin-bottom: 14px; letter-spacing: 1px; }
+.testi-quote {
+  font-size: 14px; line-height: 1.75; color: var(--text);
+  margin-bottom: 20px; position: relative;
+}
+.testi-quote::before {
+  content: '"'; font-size: 48px; color: var(--blue-pale);
+  position: absolute; top: -14px; left: -6px; line-height: 1; font-weight: 700;
+}
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-av {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--blue-pale); display: flex; align-items: center;
+  justify-content: center; font-size: 12px; font-weight: 700; color: var(--blue);
+  border: 2px solid var(--blue-mid); flex-shrink: 0;
+}
+.testi-name { font-size: 13px; font-weight: 600; }
+.testi-role { font-size: 12px; color: var(--muted); }
+
+/* ── FAQ ── */
+.faq { padding: 80px 0; background: var(--surface); }
+.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 40px; }
+.faq-item {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 20px 22px; cursor: pointer;
+}
+.faq-item summary {
+  font-size: 14px; font-weight: 600; list-style: none; display: flex;
+  justify-content: space-between; align-items: center; gap: 12px;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-chevron { font-size: 18px; color: var(--muted); transition: transform 0.2s; flex-shrink: 0; }
+details[open] .faq-chevron { transform: rotate(180deg); }
+.faq-item p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+
+/* ── BOTTOM CTA ── */
+.cta-section { padding: 80px 0; background: var(--blue); }
+.cta-inner { text-align: center; max-width: 600px; margin: 0 auto; }
+.cta-inner h2 { font-size: 34px; font-weight: 700; color: #fff; letter-spacing: -0.02em; margin-bottom: 14px; }
+.cta-inner p { font-size: 17px; color: rgba(255,255,255,0.75); margin-bottom: 32px; }
+.cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-white {
+  background: #fff; color: var(--blue);
+  padding: 14px 28px; border-radius: var(--radius);
+  font-size: 15px; font-weight: 600; border: none; cursor: pointer;
+}
+.btn-white:hover { background: #F0F9FF; }
+.btn-ghost {
+  background: transparent; color: rgba(255,255,255,0.85);
+  padding: 14px 28px; border-radius: var(--radius);
+  font-size: 15px; font-weight: 500; border: 1.5px solid rgba(255,255,255,0.35); cursor: pointer;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
+
+/* ── FOOTER ── */
+footer {
+  background: #0F172A; padding: 40px 0 24px;
+}
+.footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px; margin-bottom: 32px; }
+.footer-brand .logo-text { color: #fff; }
+.footer-brand .logo-text span { color: var(--blue-mid); }
+.footer-desc { font-size: 13px; color: #6B7280; margin-top: 8px; max-width: 260px; line-height: 1.6; }
+.footer-links { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+.footer-links a { font-size: 13px; color: #6B7280; }
+.footer-links a:hover { color: #fff; }
+.footer-divider { border: none; border-top: 1px solid #1E293B; margin-bottom: 20px; }
+.footer-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.footer-copy { font-size: 12px; color: #4B5563; }
+.footer-reg { font-size: 12px; color: #4B5563; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .process-steps::before { display: none; }
+  .faq-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+}
+@media (max-width: 600px) {
+  .hero h1 { font-size: 30px; }
+  .process-steps { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+}
+
+/* ── LOADING SPINNER ── */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; }
+
+/* ── AI TYPING INDICATOR ── */
+.ai-assist {
+  background: var(--blue-pale); border: 1px solid var(--blue-mid);
+  border-radius: var(--radius); padding: 10px 14px; margin-bottom: 14px;
+  font-size: 12px; color: var(--blue); display: none; align-items: center; gap: 8px;
+}
+.ai-dots span {
+  display: inline-block; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--blue); animation: bounce 1.2s infinite;
+}
+.ai-dots span:nth-child(2) { animation-delay: 0.2s; }
+.ai-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bounce { 0%,80%,100%{transform:scale(.8);opacity:.5} 40%{transform:scale(1.2);opacity:1} }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">
+      <div class="logo-mark">ET</div>
+      <div class="logo-text">Expandimo <span>Technologies</span></div>
+    </div>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#why-us">Why us</a>
+      <a href="#process">Process</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <button class="nav-cta" onclick="scrollToForm()">Get free quote</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-tag">
+          <div class="dot"></div>
+          Serving UK · USA · Australia · Canada
+        </div>
+        <h1>We build custom <em>web applications</em> that grow your business</h1>
+        <p class="hero-sub">From SaaS platforms to client portals — Expandimo Technologies delivers production-ready software on time and on budget, with full UK-timezone support.</p>
+        <div class="trust-row">
+          <div class="trust-chip"><div class="icon">✓</div> Fixed-price contracts</div>
+          <div class="trust-chip"><div class="icon">✓</div> UK timezone support</div>
+          <div class="trust-chip"><div class="icon">✓</div> Dedicated team</div>
+          <div class="trust-chip"><div class="icon">✓</div> 3 months free support</div>
+        </div>
+        <div class="hero-ctas">
+          <button class="btn-blue" onclick="scrollToForm()">Get free project quote <span>→</span></button>
+          <a href="mailto:hello@expandimo.com" class="btn-outline">Email us directly</a>
+        </div>
+        <div class="hero-social-proof">
+          <div class="avatars">
+            <div class="av">JM</div><div class="av">SR</div><div class="av">TK</div><div class="av">AL</div>
+          </div>
+          <div>
+            <div class="stars-sm">★★★★★</div>
+            <div class="social-text"><strong>50+ clients</strong> — 4.9/5 rating</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LEAD FORM -->
+      <div>
+        <div class="form-card" id="lead-form">
+          <div class="form-header">
+            <h3>Get a free project quote</h3>
+            <p>Tell us what you need — we'll handle the rest</p>
+            <div class="response-badge">⚡ Response within 4 business hours</div>
+          </div>
+          <div class="form-body">
+            <!-- AI assist indicator -->
+            <div class="ai-assist" id="aiAssist">
+              <div class="ai-dots"><span></span><span></span><span></span></div>
+              <span id="aiText">Analysing your requirements...</span>
+            </div>
+
+            <div class="form-error" id="formError"></div>
+
+            <form id="enquiryForm" novalidate>
+              <div class="form-row">
+                <div class="fg">
+                  <label for="f-name">Full name *</label>
+                  <input type="text" id="f-name" name="name" placeholder="John Smith" autocomplete="name" />
+                </div>
+                <div class="fg">
+                  <label for="f-company">Company</label>
+                  <input type="text" id="f-company" name="company" placeholder="Acme Ltd" autocomplete="organization" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="fg">
+                  <label for="f-email">Work email *</label>
+                  <input type="email" id="f-email" name="email" placeholder="john@company.com" autocomplete="email" />
+                </div>
+                <div class="fg">
+                  <label for="f-phone">Phone number</label>
+                  <input type="tel" id="f-phone" name="phone" placeholder="+44 7700 000000" autocomplete="tel" />
+                </div>
+              </div>
+              <div class="fg">
+                <label for="f-service">What do you need built? *</label>
+                <select id="f-service" name="service">
+                  <option value="">Select a service...</option>
+                  <option value="Custom Web Application">Custom web application</option>
+                  <option value="SaaS / MVP Development">SaaS / MVP development</option>
+                  <option value="Business Portal / CRM">Business portal / CRM</option>
+                  <option value="API Integration">API & system integration</option>
+                  <option value="Existing App Upgrade">Existing app upgrade / modernisation</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="fg">
+                <label for="f-budget">Estimated budget</label>
+                <select id="f-budget" name="budget">
+                  <option value="">Select budget range...</option>
+                  <option value="$3k-$8k">$3,000 – $8,000</option>
+                  <option value="$8k-$15k">$8,000 – $15,000</option>
+                  <option value="$15k-$30k">$15,000 – $30,000</option>
+                  <option value="$30k+">$30,000+</option>
+                </select>
+              </div>
+              <div class="fg">
+                <label for="f-message">Brief description</label>
+                <textarea id="f-message" name="message" placeholder="Describe what you want to build, any specific features, or your current challenges..."></textarea>
+              </div>
+              <button type="submit" class="submit-btn" id="submitBtn">
+                <span id="btnText">Send quote request</span>
+                <span id="btnArrow">→</span>
+              </button>
+              <div class="form-secure">🔒 SSL secured · No spam · Your details stay private</div>
+            </form>
+
+            <div class="form-success" id="formSuccess">
+              <div class="check">✅</div>
+              <h3>Request received!</h3>
+              <p>Thank you, <span id="successName"></span>! We'll review your requirements and send a free quote to <span id="successEmail" style="color:var(--blue);font-weight:500"></span> within 4 business hours.</p>
+              <div style="margin-top:16px;padding:12px 16px;background:var(--bg);border-radius:var(--radius);font-size:12px;color:var(--muted)">
+                Reference: <strong id="leadRef" style="color:var(--text)"></strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENT LOGOS -->
+<div class="logos-strip">
+  <div class="wrap">
+    <div class="logos-label">Trusted by businesses in</div>
+    <div class="logos-row">
+      <div class="logo-badge">🇬🇧 United Kingdom</div>
+      <div class="logo-badge">🇺🇸 United States</div>
+      <div class="logo-badge">🇦🇺 Australia</div>
+      <div class="logo-badge">🇨🇦 Canada</div>
+      <div class="logo-badge">🇦🇪 UAE</div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="section-eyebrow">What we build</div>
+    <h2 class="section-title">End-to-end development services</h2>
+    <p class="section-sub">We take projects from idea to production — design, development, testing, deployment, and ongoing support.</p>
+    <div class="services-grid">
+      <div class="svc">
+        <div class="svc-icon">💻</div>
+        <h4>Custom web applications</h4>
+        <p>Bespoke web apps built around your business workflows. Scalable, secure, and maintainable.</p>
+      </div>
+      <div class="svc">
+        <div class="svc-icon">🚀</div>
+        <h4>SaaS & MVP development</h4>
+        <p>Go from idea to live SaaS product fast. Full-stack development with user auth, billing, and admin.</p>
+      </div>
+      <div class="svc">
+        <div class="svc-icon">📊</div>
+        <h4>Business portals & CRM</h4>
+        <p>Client portals, internal dashboards, and custom CRM systems built for your exact process.</p>
+      </div>
+      <div class="svc">
+        <div class="svc-icon">🔌</div>
+        <h4>API & system integration</h4>
+        <p>Connect disparate systems. Payment gateways, third-party APIs, and automated pipelines.</p>
+      </div>
+      <div class="svc">
+        <div class="svc-icon">🔄</div>
+        <h4>App modernisation</h4>
+        <p>Rebuild slow, outdated legacy software into fast, secure, modern applications.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why" id="why-us">
+  <div class="wrap">
+    <div class="why-grid">
+      <div>
+        <div class="section-eyebrow">Why Expandimo</div>
+        <h2 class="section-title">Why 50+ clients chose us</h2>
+        <div class="why-points">
+          <div class="why-point">
+            <div class="why-icon">💷</div>
+            <div>
+              <h4>Fixed-price contracts</h4>
+              <p>We agree scope and price upfront. No surprise invoices, no scope creep charges. You always know what you're paying.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-icon">🕐</div>
+            <div>
+              <h4>UK timezone communication</h4>
+              <p>Your dedicated project manager is available Mon–Fri 9am–6pm GMT. No delays, no time-zone friction.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-icon">👥</div>
+            <div>
+              <h4>Dedicated team, not freelancers</h4>
+              <p>A consistent team works your project start to finish. You build a relationship, not a ticket queue.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-icon">🛡️</div>
+            <div>
+              <h4>3 months free post-launch support</h4>
+              <p>Every project includes 3 months of free support after go-live. We're invested in your long-term success.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="stats-panel">
+          <div class="stats-top">
+            <div class="stats-grid">
+              <div class="stat"><div class="stat-n">50+</div><div class="stat-l">Projects delivered</div></div>
+              <div class="stat"><div class="stat-n">5+</div><div class="stat-l">Years experience</div></div>
+              <div class="stat"><div class="stat-n">98%</div><div class="stat-l">On-time delivery</div></div>
+              <div class="stat"><div class="stat-n">4.9★</div><div class="stat-l">Average rating</div></div>
+            </div>
+          </div>
+          <div class="tech-block">
+            <div class="tech-label">Technology stack</div>
+            <div class="chips">
+              <span class="chip">Laravel</span>
+              <span class="chip">PHP 8.x</span>
+              <span class="chip">React</span>
+              <span class="chip">Vue.js</span>
+              <span class="chip">Next.js</span>
+              <span class="chip">MySQL</span>
+              <span class="chip">PostgreSQL</span>
+              <span class="chip">AWS</span>
+              <span class="chip">REST APIs</span>
+              <span class="chip">Filament</span>
+              <span class="chip">Livewire</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="section-eyebrow">How it works</div>
+    <h2 class="section-title" style="margin-bottom:44px">From first call to live product</h2>
+    <div class="process-steps">
+      <div class="pstep">
+        <div class="pstep-num">1</div>
+        <h4>Free consultation</h4>
+        <p>30-minute call to understand your goals, timeline, and budget. No hard sell, just clarity.</p>
+      </div>
+      <div class="pstep">
+        <div class="pstep-num">2</div>
+        <h4>Proposal & quote</h4>
+        <p>Detailed scope, wireframes, and a fixed-price quote delivered within 48 hours.</p>
+      </div>
+      <div class="pstep">
+        <div class="pstep-num">3</div>
+        <h4>Design & build</h4>
+        <p>Agile sprints with weekly demos. You stay in the loop and can give feedback at every step.</p>
+      </div>
+      <div class="pstep">
+        <div class="pstep-num">4</div>
+        <h4>Launch & support</h4>
+        <p>Deployment, team training, and 3 months of free post-launch support included.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="wrap">
+    <div class="section-eyebrow">Client feedback</div>
+    <h2 class="section-title" style="margin-bottom:40px">Trusted by businesses worldwide</h2>
+    <div class="testi-grid">
+      <div class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">Expandimo built our entire customer portal in 8 weeks. Communication was excellent throughout and the final product exceeded our expectations.</div>
+        <div class="testi-author">
+          <div class="testi-av">JM</div>
+          <div><div class="testi-name">James Mitchell</div><div class="testi-role">CEO — Logistics company, UK</div></div>
+        </div>
+      </div>
+      <div class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">We had a complex SaaS idea and weren't sure where to start. Expandimo guided us through the whole process. MVP launched on time and on budget.</div>
+        <div class="testi-author">
+          <div class="testi-av">SR</div>
+          <div><div class="testi-name">Sarah Reynolds</div><div class="testi-role">Founder — SaaS startup, USA</div></div>
+        </div>
+      </div>
+      <div class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">Their team is professional, responsive, and genuinely cares about the outcome. I've worked with many dev agencies — Expandimo is in a league of their own.</div>
+        <div class="testi-author">
+          <div class="testi-av">TK</div>
+          <div><div class="testi-name">Tom Kowalski</div><div class="testi-role">Operations Director — Australia</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="section-eyebrow">FAQ</div>
+    <h2 class="section-title">Common questions</h2>
+    <div class="faq-grid">
+      <details class="faq-item">
+        <summary>How much does a custom web app cost? <span class="faq-chevron">›</span></summary>
+        <p>Most projects fall between $5,000 and $30,000 depending on complexity. We always provide a fixed-price quote before any work begins — no hidden costs.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How long does development take? <span class="faq-chevron">›</span></summary>
+        <p>A typical web app takes 6–16 weeks. MVPs can often be delivered in 4–8 weeks. We'll give you an accurate timeline in our proposal.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Do you work with UK/US clients remotely? <span class="faq-chevron">›</span></summary>
+        <p>Yes — 100% of our clients are remote. We communicate on UK business hours and use Slack, Notion, and weekly Zoom calls to stay aligned.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What happens after the project launches? <span class="faq-chevron">›</span></summary>
+        <p>Every project includes 3 months of free post-launch support. After that, we offer flexible retainer packages for ongoing maintenance and feature development.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Do you sign NDAs? <span class="faq-chevron">›</span></summary>
+        <p>Absolutely. We're happy to sign an NDA before any discussions. Client confidentiality is taken seriously on every project.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Will I own the source code? <span class="faq-chevron">›</span></summary>
+        <p>Yes — you own 100% of the source code, assets, and IP. Upon final payment we transfer everything to your repositories.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<section class="cta-section">
+  <div class="wrap">
+    <div class="cta-inner">
+      <h2>Ready to build something great?</h2>
+      <p>Get a free consultation and fixed-price quote within 48 hours. No commitment required.</p>
+      <div class="cta-btns">
+        <button class="btn-white" onclick="scrollToForm()">Get free quote now</button>
+        <a href="mailto:hello@expandimo.com" class="btn-ghost">hello@expandimo.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-mark">ET</div>
+          <div class="logo-text">Expandimo <span>Technologies</span></div>
+        </div>
+        <div class="footer-desc">Custom web applications, SaaS platforms, and business portals for UK, US & Australian businesses.</div>
+      </div>
+      <div class="footer-links">
+        <a href="#services">Services</a>
+        <a href="#why-us">Why us</a>
+        <a href="#process">Process</a>
+        <a href="#faq">FAQ</a>
+        <a href="mailto:hello@expandimo.com">Contact</a>
+      </div>
+    </div>
+    <hr class="footer-divider" />
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Expandimo Technologies PVT Ltd. All rights reserved.</div>
+      <div class="footer-reg">Registered in India · Serving UK, USA & Australia</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const API_BASE = window.location.origin;
+
+  function scrollToForm() {
+    document.getElementById('lead-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // AI assist messages based on service selected
+  const aiMessages = {
+    'Custom Web Application': 'Great choice — we\'ve built 20+ custom web apps. Analysing requirements...',
+    'SaaS / MVP Development': 'SaaS is our speciality — we\'ll have you live in 6–10 weeks. Reviewing...',
+    'Business Portal / CRM': 'We\'ve built portals for logistics, healthcare & finance. Checking fit...',
+    'API Integration': 'API integrations typically take 2–4 weeks. Estimating scope...',
+    'Existing App Upgrade': 'We love taking over and improving existing apps. Assessing...',
+    'Other': 'Interesting — tell us more in the description below...',
+  };
+
+  document.getElementById('f-service').addEventListener('change', function () {
+    const msg = aiMessages[this.value];
+    if (msg) {
+      const assist = document.getElementById('aiAssist');
+      document.getElementById('aiText').textContent = msg;
+      assist.style.display = 'flex';
+      setTimeout(() => assist.style.display = 'none', 3000);
+    }
+  });
+
+  document.getElementById('enquiryForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const btn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const btnArrow = document.getElementById('btnArrow');
+    const errorBox = document.getElementById('formError');
+
+    // Validate
+    const name    = document.getElementById('f-name').value.trim();
+    const email   = document.getElementById('f-email').value.trim();
+    const service = document.getElementById('f-service').value;
+
+    if (!name || !email || !service) {
+      errorBox.textContent = 'Please fill in your name, email, and the service you need.';
+      errorBox.style.display = 'block';
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errorBox.textContent = 'Please enter a valid email address.';
+      errorBox.style.display = 'block';
+      return;
+    }
+
+    errorBox.style.display = 'none';
+    btn.disabled = true;
+    btnText.textContent = 'Sending...';
+    btnArrow.innerHTML = '<div class="spinner"></div>';
+
+    const payload = {
+      name,
+      email,
+      phone:   document.getElementById('f-phone').value.trim(),
+      company: document.getElementById('f-company').value.trim(),
+      service,
+      budget:  document.getElementById('f-budget').value,
+      message: document.getElementById('f-message').value.trim(),
+    };
+
+    try {
+      const res = await fetch(API_BASE + '/api/v1/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        document.getElementById('enquiryForm').style.display = 'none';
+        document.getElementById('successName').textContent = name.split(' ')[0];
+        document.getElementById('successEmail').textContent = email;
+        document.getElementById('leadRef').textContent = 'EXP-' + String(data.lead_id).padStart(4, '0');
+        document.getElementById('formSuccess').style.display = 'block';
+      } else {
+        const msgs = data.errors ? Object.values(data.errors).flat().join(' ') : (data.message || 'Something went wrong. Please try again.');
+        errorBox.textContent = msgs;
+        errorBox.style.display = 'block';
+        btn.disabled = false;
+        btnText.textContent = 'Send quote request';
+        btnArrow.textContent = '→';
+      }
+    } catch (err) {
+      errorBox.textContent = 'Network error. Please email us directly at hello@expandimo.com';
+      errorBox.style.display = 'block';
+      btn.disabled = false;
+      btnText.textContent = 'Send quote request';
+      btnArrow.textContent = '→';
+    }
+  });
+</script>
+</body>
+</html>
