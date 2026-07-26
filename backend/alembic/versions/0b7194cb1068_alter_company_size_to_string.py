@@ -19,7 +19,8 @@ depends_on: Union[str, Sequence[str], None] = None
 
 def upgrade() -> None:
     conn = op.get_bind()
-
+    # These are no-ops on a fresh DB — the initial migration already creates
+    # tables with the correct schema. Only runs if columns exist (local upgrade).
     op.execute("DROP INDEX IF EXISTS uq_followups_scheduled_at")
     op.execute("DROP INDEX IF EXISTS uq_app_sender_scheduled_at")
     op.execute("DROP INDEX IF EXISTS uq_applications_job_profile")
@@ -27,30 +28,15 @@ def upgrade() -> None:
     op.execute("DROP INDEX IF EXISTS ix_job_activities_job_id")
     op.execute("DROP INDEX IF EXISTS ix_job_activities_user_id")
 
-    # Only run alter_column ops if table/column exists (safe for fresh DB)
-    if conn.execute(sa.text("SELECT to_regclass('public.applications')")).scalar():
-        op.alter_column('applications', 'profile_email_id',
-                   existing_type=sa.UUID(),
-                   nullable=False)
-
-    if conn.execute(sa.text("SELECT to_regclass('public.job_activities')")).scalar():
-        op.alter_column('job_activities', 'job_id',
-                   existing_type=sa.UUID(),
-                   nullable=False)
-        op.alter_column('job_activities', 'created_at',
-                   existing_type=postgresql.TIMESTAMP(),
-                   nullable=False,
-                   existing_server_default=sa.text('now()'))
-
-    if conn.execute(sa.text("SELECT to_regclass('public.jobs')")).scalar():
+    has_company_size = conn.execute(sa.text(
+        "SELECT 1 FROM information_schema.columns "
+        "WHERE table_name='jobs' AND column_name='company_size' AND data_type='integer'"
+    )).scalar()
+    if has_company_size:
         op.alter_column('jobs', 'company_size',
                    existing_type=sa.INTEGER(),
                    type_=sa.String(length=100),
                    existing_nullable=True)
-        op.alter_column('jobs', 'auto_apply_enabled',
-                   existing_type=sa.BOOLEAN(),
-                   nullable=False,
-                   existing_server_default=sa.text('true'))
 
 
 def downgrade() -> None:
