@@ -705,15 +705,17 @@ export default function JobsPage() {
   // Multi-select
   const [selected, setSelected] = useState<Set<string>>(new Set());
 
-  const { data = [], isLoading } = useQuery({
-    queryKey: ["jobs", statusFilter, manualFilter],
-    queryFn: () => getJobs({ page_size: 2000, ...(statusFilter && { status: statusFilter }), ...(manualFilter && { uploaded_manually: true }) }),
+  const { data: jobsResponse, isLoading } = useQuery({
+    queryKey: ["jobs", statusFilter, manualFilter, page, pageSize],
+    queryFn: () => getJobs({ page, page_size: pageSize, ...(statusFilter && { status: statusFilter }), ...(manualFilter && { uploaded_manually: true }) }),
+    keepPreviousData: true,
   });
 
   const { data: profilesData = [] } = useQuery({ queryKey: ["profiles"], queryFn: getProfiles });
   const activeProfiles = (profilesData as any[]).filter((p: any) => p.is_active !== false);
 
-  const allJobs = data as any[];
+  const allJobs = (jobsResponse?.jobs ?? jobsResponse ?? []) as any[];
+  const serverTotal = jobsResponse?.total ?? allJobs.length;
 
   // Client-side filtering + pagination
   const [filterCountry, setFilterCountry] = useState("");
@@ -811,8 +813,8 @@ export default function JobsPage() {
     return result;
   }, [allJobs, statusFilter, filterCountry, filterPlatform, filterScheduleDate, filterAppliedDate, filterScrapedDate, filterActivityDate, filterTeamSize, searchQuery, scrapedTodayFilter, todayStr]);
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
-  const paginated = filtered.slice((page - 1) * pageSize, page * pageSize);
+  const totalPages = Math.max(1, Math.ceil(serverTotal / pageSize));
+  const paginated = filtered;
 
   // Reset page when filter or pageSize changes
   const handleStatusFilter = (s: string) => { setStatusFilter(s); setPage(1); setSelected(new Set()); };
@@ -952,7 +954,7 @@ export default function JobsPage() {
 
   // Stats derived from all jobs
   const stats = {
-    total: allJobs.length,
+    total: serverTotal,
     sent: allJobs.filter((j: any) => j.date_applied).length,
     scheduled: allJobs.filter((j: any) => j.scheduled_at && !j.date_applied).length,
     opened: allJobs.filter((j: any) => j.application_status === "opened").length,
@@ -986,7 +988,7 @@ export default function JobsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Jobs</h1>
-          <p className="text-gray-500 text-sm mt-1">{filtered.length} of {allJobs.length} jobs</p>
+          <p className="text-gray-500 text-sm mt-1">{filtered.length} shown · {serverTotal.toLocaleString()} total jobs</p>
         </div>
         <div className="flex gap-2 items-center">
           <button onClick={() => setShowFilters(v => !v)}

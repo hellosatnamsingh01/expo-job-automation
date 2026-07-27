@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Query
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, or_
+from sqlalchemy import select, or_, func
 from pydantic import BaseModel
 from typing import Optional, List
 import uuid, hashlib, json
@@ -121,6 +121,11 @@ async def list_jobs(
         Job.scraped_at.desc().nullslast(),
         Job.created_at.desc(),
     )
+    # Count total matching jobs before applying pagination
+    count_query = select(func.count()).select_from(query.order_by(None).subquery())
+    total_result = await db.execute(count_query)
+    total = total_result.scalar() or 0
+
     query = query.offset((page - 1) * page_size).limit(page_size)
 
     result = await db.execute(query)
@@ -242,7 +247,7 @@ async def list_jobs(
                 for c in contacts
             ],
         })
-    return out
+    return {"jobs": out, "total": total, "page": page, "page_size": page_size}
 
 
 @router.post("/")
