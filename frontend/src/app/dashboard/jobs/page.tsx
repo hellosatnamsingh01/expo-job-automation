@@ -708,7 +708,6 @@ export default function JobsPage() {
   const { data: jobsResponse, isLoading } = useQuery({
     queryKey: ["jobs", statusFilter, manualFilter, page, pageSize],
     queryFn: () => getJobs({ page, page_size: pageSize, ...(statusFilter && { status: statusFilter }), ...(manualFilter && { uploaded_manually: true }) }),
-    keepPreviousData: true,
   });
 
   const { data: profilesData = [] } = useQuery({ queryKey: ["profiles"], queryFn: getProfiles });
