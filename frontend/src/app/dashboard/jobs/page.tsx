@@ -713,7 +713,7 @@ export default function JobsPage() {
   const { data: profilesData = [] } = useQuery({ queryKey: ["profiles"], queryFn: getProfiles });
   const activeProfiles = (profilesData as any[]).filter((p: any) => p.is_active !== false);
 
-  const allJobs = (Array.isArray(jobsResponse) ? jobsResponse : []) as any[];
+  const allJobs = (jobsResponse?.jobs ?? (Array.isArray(jobsResponse) ? jobsResponse : [])) as any[];
 
   // Client-side filtering + pagination
   const [filterCountry, setFilterCountry] = useState("");
