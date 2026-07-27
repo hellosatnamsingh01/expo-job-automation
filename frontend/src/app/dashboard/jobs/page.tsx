@@ -706,15 +706,14 @@ export default function JobsPage() {
   const [selected, setSelected] = useState<Set<string>>(new Set());
 
   const { data: jobsResponse, isLoading } = useQuery({
-    queryKey: ["jobs", statusFilter, manualFilter, page, pageSize],
-    queryFn: () => getJobs({ page, page_size: pageSize, ...(statusFilter && { status: statusFilter }), ...(manualFilter && { uploaded_manually: true }) }),
+    queryKey: ["jobs"],
+    queryFn: () => getJobs({ page: 1, page_size: 2000 }),
   });
 
   const { data: profilesData = [] } = useQuery({ queryKey: ["profiles"], queryFn: getProfiles });
   const activeProfiles = (profilesData as any[]).filter((p: any) => p.is_active !== false);
 
-  const allJobs = (jobsResponse?.jobs ?? jobsResponse ?? []) as any[];
-  const serverTotal = jobsResponse?.total ?? allJobs.length;
+  const allJobs = (Array.isArray(jobsResponse) ? jobsResponse : []) as any[];
 
   // Client-side filtering + pagination
   const [filterCountry, setFilterCountry] = useState("");
@@ -812,8 +811,8 @@ export default function JobsPage() {
     return result;
   }, [allJobs, statusFilter, filterCountry, filterPlatform, filterScheduleDate, filterAppliedDate, filterScrapedDate, filterActivityDate, filterTeamSize, searchQuery, scrapedTodayFilter, todayStr]);
 
-  const totalPages = Math.max(1, Math.ceil(serverTotal / pageSize));
-  const paginated = filtered;
+  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const paginated = filtered.slice((page - 1) * pageSize, page * pageSize);
 
   // Reset page when filter or pageSize changes
   const handleStatusFilter = (s: string) => { setStatusFilter(s); setPage(1); setSelected(new Set()); };
@@ -953,7 +952,7 @@ export default function JobsPage() {
 
   // Stats derived from all jobs
   const stats = {
-    total: serverTotal,
+    total: allJobs.length,
     sent: allJobs.filter((j: any) => j.date_applied).length,
     scheduled: allJobs.filter((j: any) => j.scheduled_at && !j.date_applied).length,
     opened: allJobs.filter((j: any) => j.application_status === "opened").length,
@@ -987,7 +986,7 @@ export default function JobsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Jobs</h1>
-          <p className="text-gray-500 text-sm mt-1">{filtered.length} shown · {serverTotal.toLocaleString()} total jobs</p>
+          <p className="text-gray-500 text-sm mt-1">{filtered.length} shown · {allJobs.length.toLocaleString()} total jobs</p>
         </div>
         <div className="flex gap-2 items-center">
           <button onClick={() => setShowFilters(v => !v)}
@@ -1028,7 +1027,7 @@ export default function JobsPage() {
       {/* Stats cards */}
       <div className="grid grid-cols-6 gap-3">
         {[
-          { label: "Total Jobs",      value: stats.total,        icon: Briefcase,  color: "text-gray-700",    bg: "bg-gray-50",    border: "border-gray-200",   onClick: undefined },
+          { label: "Total Jobs",      value: stats.total,        icon: Briefcase,  color: "text-gray-700",    bg: "bg-gray-50",    border: "border-gray-200",   onClick: () => { setStatusFilter(""); setManualFilter(false); setFilterCountry(""); setFilterPlatform(""); setFilterScheduleDate(""); setFilterAppliedDate(""); setFilterScrapedDate(""); setFilterActivityDate(""); setFilterTeamSize(""); setSearchQuery(""); setScrapedTodayFilter(false); setPage(1); } },
           { label: "Scraped Today",   value: stats.scrapedToday, icon: RefreshCw,  color: "text-orange-700",  bg: "bg-orange-50",  border: "border-orange-200", onClick: () => { setFilterScrapedDate(todayStr); setPage(1); } },
           { label: "Emails Sent",     value: stats.sent,         icon: Send,       color: "text-blue-700",    bg: "bg-blue-50",    border: "border-blue-200",   onClick: undefined },
           { label: "Scheduled",       value: stats.scheduled,    icon: AlarmClock, color: "text-cyan-700",    bg: "bg-cyan-50",    border: "border-cyan-200",   onClick: undefined },
