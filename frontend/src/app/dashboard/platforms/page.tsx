@@ -384,9 +384,14 @@ export default function PlatformsPage() {
                             const isLinkedIn = p.name === "LinkedIn Jobs";
                             const usagePool = isLinkedIn ? (apifyUsage?.keys || []) : (hasDataUsage?.keys || []);
                             const usageKey = usagePool.find((u: any) => u.email === email || u.key_prefix === (k.key || "").slice(0, isLinkedIn ? 16 : 8) + "...");
-                            const exhausted = usageKey?.status === "exhausted";
+                            const renewDatePast = k.renew_date && new Date(k.renew_date) <= new Date();
+                            const exhausted = usageKey?.status === "exhausted" && !renewDatePast;
                             const active = usageKey?.status === "active";
-                            const renewStr = k.renew_date ? ` · Renews ${new Date(k.renew_date).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}` : (exhausted ? " · Renews monthly" : "");
+                            const renewStr = k.renew_date
+                              ? renewDatePast
+                                ? ` · Renewed ${new Date(k.renew_date).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}`
+                                : ` · Renews ${new Date(k.renew_date).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}`
+                              : (exhausted ? " · Renews monthly" : "");
                             return (
                               <span key={i} className={`text-[11px] px-2 py-0.5 rounded-full font-medium border flex items-center gap-1 ${
                                 exhausted ? "text-red-600 bg-red-50 border-red-200" :
