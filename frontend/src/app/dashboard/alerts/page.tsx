@@ -11,6 +11,7 @@ import { useState } from "react";
 const TYPE_META: Record<string, { label: string; icon: any; color: string }> = {
   key_exhausted:      { label: "Key Exhausted",       icon: Key,            color: "text-orange-500" },
   key_rotated:        { label: "Key Rotated",          icon: RefreshCw,      color: "text-blue-500" },
+  key_renewed:        { label: "Key Renewed",          icon: RefreshCw,      color: "text-emerald-500" },
   key_error:          { label: "Key Error",            icon: Key,            color: "text-red-500" },
   platform_error:     { label: "Platform Error",       icon: Globe,          color: "text-red-500" },
   platform_ok:        { label: "Platform Scraped",     icon: Globe,          color: "text-green-500" },

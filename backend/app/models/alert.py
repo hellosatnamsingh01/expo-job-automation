@@ -9,6 +9,7 @@ from app.db.base import Base
 class AlertType(str, enum.Enum):
     key_exhausted   = "key_exhausted"    # API key ran out of credits
     key_rotated     = "key_rotated"      # Rotated to next key
+    key_renewed     = "key_renewed"      # API key credits renewed and confirmed active
     key_error       = "key_error"        # Key returning unexpected error
     platform_error  = "platform_error"   # Platform scrape failed
     platform_ok     = "platform_ok"      # Platform scrape succeeded (info)

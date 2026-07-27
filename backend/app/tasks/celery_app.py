@@ -17,6 +17,7 @@ celery_app = Celery(
         "app.tasks.reply_checker",
         "app.tasks.company_enrichment",
         "app.tasks.b2b_leads",
+        "app.tasks.key_renewal",
     ],
 )
 
@@ -117,6 +118,11 @@ celery_app.conf.beat_schedule = {
     "cleanup-skipped-jobs": {
         "task": "app.tasks.matcher.cleanup_skipped_jobs_task",
         "schedule": crontab(minute=0, hour="2,14"),
+    },
+    # Daily at 08:00 UTC — probe keys whose renew_date has passed and alert on result
+    "check-key-renewals": {
+        "task": "app.tasks.key_renewal.check_key_renewals_task",
+        "schedule": crontab(minute=0, hour=8),
     },
 }
 
