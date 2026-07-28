@@ -12,9 +12,14 @@ down_revision = 'd4e5f6a7b8c9'
 branch_labels = None
 depends_on = None
 
+# ALTER TYPE ... ADD VALUE cannot run inside a transaction in PostgreSQL
+transaction_per_migration = False
+
 
 def upgrade() -> None:
+    op.execute("COMMIT")
     op.execute("ALTER TYPE alerttype ADD VALUE IF NOT EXISTS 'key_renewed'")
+    op.execute("BEGIN")
 
 
 def downgrade() -> None:
